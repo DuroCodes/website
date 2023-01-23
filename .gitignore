@@ -1,6 +1,5 @@
 # build output
 dist/
-.output/
 
 # dependencies
 node_modules/
@@ -11,6 +10,8 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# editor
+.vscode/
 
 # environment variables
 .env

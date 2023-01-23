@@ -1,6 +1,6 @@
 # Presonal Website
 
-<img src="public/images/banner.png" width="560" height="315">
+<img src="public/images/banner.png" width="560" height="315"/>
 
 ## What is it?
 
