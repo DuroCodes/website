@@ -1,0 +1,55 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Project from "../components/Project.astro";
+
+interface Repo {
+  owner: string;
+  repo: string;
+  description: string;
+  language: string;
+  languageColor: string;
+  stars: string;
+  forks: string;
+}
+
+const pinnedRepos = (await (
+  await fetch("https://gh-pinned-repos.egoist.dev/?username=durocodes")
+).json()) as Repo[];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <BaseHead title={`${SITE_TITLE} home`} description={SITE_DESCRIPTION} />
+  </head>
+
+  <body>
+    <Header title={SITE_TITLE} />
+    <main class="text-lg text-neutral-200">
+      <h1 class="text-4xl pb-2">I'm Duro</h1>
+      <p>
+        I'm a self-taught developer, and I like to work on
+        <b>discord bots</b>, <b>web development</b>, and <b>APIs</b>
+      </p>
+      <br />
+      <p>
+        I'm currently a junior in highschool. In my free time, I like to code,
+        listen to music, and occasionally write blog posts
+        <a href="/blogs">here</a>.
+      </p>
+      <br />
+      <br />
+      <h2 class="text-3xl pb-4">My Projects</h2>
+
+      <section
+        class="grid grid-cols-1 gap-4 auto-cols-max sm:grid-cols-2 sm:gap-3"
+      >
+        {pinnedRepos.map((repo) => <Project {...repo} />)}
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
