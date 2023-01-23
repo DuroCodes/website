@@ -4,6 +4,7 @@ specifiers:
   '@astrojs/mdx': ^0.14.0
   '@astrojs/prefetch': ^0.1.1
   '@astrojs/react': ^1.2.2
+  '@astrojs/rss': ^2.0.0
   '@astrojs/sitemap': ^1.0.0
   '@types/react': ^18.0.21
   '@types/react-dom': ^18.0.6
@@ -18,12 +19,12 @@ specifiers:
   rehype-autolink-headings: ^6.1.1
   unocss: ^0.48.4
   unocss-preset-scrollbar: ^0.2.1
-  vfile: ^5.3.6
 
 dependencies:
   '@astrojs/mdx': 0.14.0_rollup@2.79.1
   '@astrojs/prefetch': 0.1.1
   '@astrojs/react': 1.2.2_fxtgt6bjwd6p4cwoordejim2zi
+  '@astrojs/rss': 2.0.0
   '@astrojs/sitemap': 1.0.0
   '@types/react': 18.0.27
   '@types/react-dom': 18.0.10
@@ -35,7 +36,6 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   reading-time: 1.5.0
   rehype-autolink-headings: 6.1.1
-  vfile: 5.3.6
 
 devDependencies:
   '@unocss/reset': 0.48.4
@@ -189,6 +189,12 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@astrojs/rss/2.0.0:
+    resolution: {integrity: sha512-qXsmyq2HhnKRA85US6GLelT47VLhdtS0bNq88umqfB2uneB9vWHSLnOJjhN9rv0mUSQjsFYytF4IEznfmNnpkQ==}
+    dependencies:
+      fast-xml-parser: 4.0.14
     dev: false
 
   /@astrojs/sitemap/1.0.0:
@@ -1794,6 +1800,13 @@ packages:
       glob-parent: 5.1.2
       merge2: 1.4.1
       micromatch: 4.0.5
+
+  /fast-xml-parser/4.0.14:
+    resolution: {integrity: sha512-uKe7uxZ9DgNOmHfUmBdhkTBZcMMVxvQ3vELTxUpmotAqRxkpMayEiiQ4AQWTGAVyfzT4Dv79jaszLECWCYbd4w==}
+    hasBin: true
+    dependencies:
+      strnum: 1.0.5
+    dev: false
 
   /fastq/1.15.0:
     resolution: {integrity: sha512-wBrocU2LCXXa+lWBt8RoIRD89Fi8OdABODa/kEnyeyjS5aZO5/GNvI5sEINADqP/h8M29UHTHUb53sUu5Ihqdw==}
@@ -3712,6 +3725,10 @@ packages:
   /strip-final-newline/3.0.0:
     resolution: {integrity: sha512-dOESqjYr96iWYylGObzd39EuNTa5VJxyvVAEm5Jnh7KGo75V43Hk1odPQkNDyXNmUR6k+gEiDVXnjB8HJ3crXw==}
     engines: {node: '>=12'}
+    dev: false
+
+  /strnum/1.0.5:
+    resolution: {integrity: sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==}
     dev: false
 
   /style-to-object/0.4.1:
