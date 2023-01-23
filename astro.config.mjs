@@ -8,7 +8,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { remarkReadingTime } from "./src/util/readingTime.mjs";
 
 export default defineConfig({
-  site: "https://www.nexxel.dev",
+  site: "https://www.duro.ml",
   markdown: {
     extendDefaultPlugins: true,
     rehypePlugins: [rehypeAutolinkHeadings],
