@@ -16,7 +16,16 @@ const {
   content: { title, description, pubDate, readingTime },
 } = Astro.props;
 
-const input = JSON.stringify({ title, subtitle: `${pubDate} • ${readingTime}` });
+const date = new Date(pubDate).toLocaleDateString("en-us", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+
+const input = JSON.stringify({
+  title,
+  subtitle: `${date} • ${readingTime}`,
+});
 ---
 
 <html lang="en">
