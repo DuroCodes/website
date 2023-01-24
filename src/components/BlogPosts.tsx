@@ -3,12 +3,6 @@ import Fuse from 'fuse.js';
 import { Blog } from './Blog';
 import type { BlogPost } from '../types/blogPost';
 
-interface Result {
-  item: BlogPost;
-  refIndex: number;
-  score: number;
-}
-
 export function BlogPosts({ posts }: { posts: BlogPost[]; }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState('');
