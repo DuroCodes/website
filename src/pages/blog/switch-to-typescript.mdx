@@ -1,0 +1,106 @@
+---
+layout: "../../layouts/BlogPost.astro"
+title: "Why You Should Switch to TypeScript"
+description: "There's many advantages to use TypeScript, here's a few."
+pubDate: "1/24/23"
+---
+
+JavaScript is one of the most popular programming languages, and it is undisputedly the best programming language for the web.
+
+<br />
+
+However, with JavaScript there are a few glaring flaws.
+One of the major issues is the absence of type checking makes large codebases a pain to use.
+TypeScript addresses this problem, and makes JavaScript a better language for everyone.
+
+<br />
+
+## The Bad of JavaScript
+
+<br />
+
+Let's take this very simple JavaScript function, `add` that adds two numbers and returns the sum:
+
+```js
+const add = (a, b) => a + b;
+
+add(1, 2); // 3
+add(1, "2"); // 12...
+```
+
+As you can see, it's possible to pass **anything** to this function. This can cause a lot of issues when the code is more complicated than just adding two numbers.
+
+<br />
+
+For example, if you had a function that is supposed to only take in a `User` object, you may write something like this:
+
+```js
+function greetUser(user) {
+  return `Hello ${user.name}!`;
+}
+```
+
+This looks okay, until you realize that you can pass in **any value** to the function, including strings, numbers, etc.
+
+<br />
+
+## TypeScript Conversion
+
+<br />
+
+Let's address the issues with the code, using TypeScript.
+
+<br />
+
+The first example, where you are supposed to add two numbers would look like this:
+
+```ts
+const add = (a: number, b: number) => a + b;
+```
+
+To some JavaScript users, this may look a bit bloated, so let's break this function down piece by piece.
+
+<br />
+
+TypeScript adds the `number` type, and in this example, we're specifying that both `a` and `b` have to be numbers, simple enough.
+
+<br />
+
+The second example is a bit more complicated. While we can use inline types for the `User` type, we should probably put it in it's own type for re-usability.
+
+<br />
+
+You can make an object type with the following syntax:
+
+```ts
+// You can use an interface
+interface User {
+  name: string;
+  email: string;
+}
+
+// Or a type alias
+type User = {
+  name: string;
+  email: string;
+};
+```
+
+Now that we have our `User` type, we can add it to the function.
+
+```ts
+function greetUser(user: User) {
+  // You also get intellisense for the `user` variable.
+  return `Hello ${user.name}!`;
+}
+```
+
+## Conclusion
+
+<br />
+
+Overall, switching to TypeScript is a great decision in my opinion. Once you switch to TypeScript, it's hard going back to JavaScript because of the great features TypeScript provides.
+
+<br />
+
+You can view more about TypeScript on [their website](https://typescriptlang.org).
