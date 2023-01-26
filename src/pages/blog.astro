@@ -9,13 +9,20 @@ import { BlogPosts } from "../components/BlogPosts";
 
 const posts = await getCollection("blog");
 
-const blogPosts = posts.map((post) => ({
-  frontmatter: {
-    ...post.data,
-    readingTime: getReadingtime(post.body).text,
-  },
-  url: `/blog/${post.slug}`,
-}));
+const blogPosts = posts
+  .filter((post) => !post.data.draft)
+  .map((post) => ({
+    frontmatter: {
+      ...post.data,
+      readingTime: getReadingtime(post.body).text,
+    },
+    url: `/blog/${post.slug}`,
+  }))
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.pubDate).valueOf() -
+      new Date(a.frontmatter.pubDate).valueOf(),
+  );
 ---
 
 <!DOCTYPE html>
