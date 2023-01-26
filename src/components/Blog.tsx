@@ -6,7 +6,7 @@ export interface Props {
   url: string;
 }
 
-export function Blog({ title, description, date, readingTime, url }: Props) {
+export function Blog({ title, description, date, url, readingTime }: Props) {
   return (
     <a
       href={url}

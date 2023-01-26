@@ -1,10 +1,13 @@
-import rss from "@astrojs/rss";
+import rss, { pagesGlobToRssItems } from "@astrojs/rss";
 
-export const get = () =>
+export const get = async (ctx) =>
   rss({
     title: "duro • blog",
     description: "Personal website/blog on programming",
-    site: import.meta.env.SITE,
-    items: import.meta.glob("./blog/**/*.{md,mdx}"),
+    site: ctx.site,
+    items: await pagesGlobToRssItems(
+      import.meta.glob("./blog/**/*.{md,mdx}"),
+    ),
     stylesheet: "/rss/styles.xsl",
   });
+

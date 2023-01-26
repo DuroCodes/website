@@ -1,7 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import Fuse from 'fuse.js';
 import { Blog } from './Blog';
-import type { BlogPost } from '../types/blogPost';
+import type { CollectionEntry } from 'astro:content';
+
+export interface BlogPost {
+  url: string;
+  frontmatter: CollectionEntry<'blog'>['data'] & {
+    readingTime: string;
+  };
+};
 
 export function BlogPosts({ posts }: { posts: BlogPost[]; }) {
   const inputRef = useRef<HTMLInputElement>(null);
