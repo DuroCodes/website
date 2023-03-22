@@ -1,4 +1,4 @@
-# Presonal Website
+# Personal Website
 
 <img src="public/images/banner.png" width="560" height="315"/>
 
