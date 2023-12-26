@@ -1,0 +1,122 @@
+---
+layout: ../../layouts/BlogPost.astro
+title: Minecraft Plugins with Kotlin
+description: How to create a Minecraft paper plugin using the Paper API and Kotlin.
+pubDate: 12/25/23
+---
+
+[Kotlin](https://kotlinlang.org/) is a great alternative to Java. It's a modern language that compiles to JVM bytecode, so it can be used to create Minecraft plugins with ease.
+
+<br />
+
+## Why Kotlin?
+
+<br />
+
+The main reason I decided to learn Kotlin over Java is because of the simplicity of the language. Coming from languages like TypeScript and Rust, Kotlin is more familiar than Java.
+
+<br />
+
+## Getting Started
+
+<br />
+
+Assuming you have IntelliJ IDEA installed, you should download the 'Minecraft Development' plugin. This will allow you to create a new project with the Paper API.
+
+<br />
+
+After installing the plugin, click 'Create New Project' in IntelliJ. Choose the 'Minecraft' generator, and fill in the info. Make sure to use the correct version of the Paper API.
+
+## Setting up Kotlin
+
+<br />
+
+After your project initializes, it will be in Java. In order to convert it to Kotlin, rename the 'main.java' folder to 'main.kotlin', and open your main class file.
+
+<br />
+
+Inside your main class, press `Ctrl` `Alt` `Shift` `K` (or `⌘ Cmd` `⌥Opt` `⇧Shift` `K`).
+
+<br />
+
+This should prompt you to configure Kotlin in the project, just click 'Ok', and choose the latest stable version of Kotlin. Make sure to run a Gradle/Maven sync after you add Kotlin to your project.
+
+<br />
+
+## Creating a Command
+
+<br />
+
+This isn't going to cover **everything** about creating commands, but it will cover the basics to get you started.
+
+<br />
+
+To register a command, you'll first need to go to the `plugin.yml` file, and add your command to the `commands` section.
+
+```yaml
+commands:
+  mycommand:
+    description: My command
+    usage: /mycommand
+```
+
+After that, create a new package/folder called 'commands'. Inside of this folder, you'll be creating your Kotlin files for your commands.
+
+<br />
+
+Create a Kotlin file called `MyCommand.kt`. Inside of this file, you'll be creating your command class. For this example, we'll just be sending the player "Hello World!"
+
+```kotlin
+class MyCommand : CommandExecutor, TabExecutor {
+
+}
+```
+
+After this, you can right click the red highlight, and click 'Implement Members'. This will add the required methods to your class.
+
+```kotlin
+// imports
+
+class MyCommand : CommandExecutor, TabExecutor {
+    override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>?): Boolean {
+        return true
+    }
+
+    override fun onTabComplete(
+        sender: CommandSender, command: Command, label: String, args: Array<out String>?
+    ): MutableList<String> {
+        return mutableListOf()
+    }
+}
+```
+
+## onCommand() and onTabComplete()
+
+<br />
+
+Now that you have your command class, you can add functionality to it, this is what the `onCommand()` method is for. For this example, we'll be sending the player "Hello World!" when they run the command.
+
+```kotlin
+// inside onCommand()
+sender.sendMessage("Hello World!")
+```
+
+Tab completion is used to suggest arguments for the command. For example, if you have a command that takes a player name as an argument, you can use tab completion to suggest players when the user presses tab.
+
+```kotlin
+// example that suggests players (in onTabComplete())
+if (args?.size == 1) {
+    return Bukkit.getOnlinePlayers().map { it.name }.toMutableList()
+}
+```
+
+## Registering the Command
+
+<br />
+
+Now that you have your command class, you need to register it. To do this, you'll need to go to your main class, and add the following to the `onEnable()` method.
+
+```kotlin
+// inside onEnable()
+getCommand("mycommand")?.setExecutor(MyCommand())
+```
