@@ -14,7 +14,7 @@ export default defineConfig({
       hack: 'Hack',
     },
     colors: {
-      vitesseGreen: '#4d9375',
+      themeMain: '#8666cc',
       themeBlack: '#121212',
     },
   },

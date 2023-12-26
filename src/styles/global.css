@@ -67,7 +67,7 @@ b {
 }
 
 a {
-  --at-apply: "text-vitesseGreen hover:underline underline-offset-2";
+  --at-apply: "text-themeMain hover:underline underline-offset-2";
 }
 
 article a {

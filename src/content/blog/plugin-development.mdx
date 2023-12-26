@@ -27,6 +27,8 @@ Assuming you have IntelliJ IDEA installed, you should download the 'Minecraft De
 
 After installing the plugin, click 'Create New Project' in IntelliJ. Choose the 'Minecraft' generator, and fill in the info. Make sure to use the correct version of the Paper API.
 
+<br />
+
 ## Setting up Kotlin
 
 <br />
@@ -75,8 +77,6 @@ class MyCommand : CommandExecutor, TabExecutor {
 After this, you can right click the red highlight, and click 'Implement Members'. This will add the required methods to your class.
 
 ```kotlin
-// imports
-
 class MyCommand : CommandExecutor, TabExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>?): Boolean {
         return true

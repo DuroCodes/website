@@ -67,7 +67,7 @@ export function BlogPosts({ posts }: { posts: BlogPost[]; }) {
         autoComplete="off"
         ref={inputRef}
         onChange={(event) => setQuery(event.target.value)}
-        className="w-full px-4 py-2 text-(neutral-200 lg) placeholder:text-neutral-400  bg-neutral-800 rounded-xl focus:(outline-none ring-2 ring-vitesseGreen) mb-6"
+        className="w-full px-4 py-2 text-(neutral-200 lg) placeholder:text-neutral-400  bg-neutral-800 rounded-xl focus:(outline-none ring-2 ring-themeMain) mb-6"
       />
 
       {results ? (
