@@ -8,7 +8,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { remarkReadingTime } from "./src/util/readingTime.mjs";
 
 export default defineConfig({
-  site: "https://www.duro.ml",
+  site: "https://www.durocodes.me",
   markdown: {
     extendDefaultPlugins: true,
     rehypePlugins: [rehypeAutolinkHeadings],

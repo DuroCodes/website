@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://www.duro.ml/sitemap-index.xml
+Sitemap: https://www.durocodes.me/sitemap-index.xml
