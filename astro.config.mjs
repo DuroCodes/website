@@ -6,6 +6,7 @@ import unocss from "unocss/astro";
 import react from "@astrojs/react";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { remarkReadingTime } from "./src/util/readingTime.mjs";
+import theme from './public/syntax-theme.json';
 
 export default defineConfig({
   site: "https://www.durocodes.me",
@@ -14,7 +15,7 @@ export default defineConfig({
     rehypePlugins: [rehypeAutolinkHeadings],
     remarkPlugins: [remarkReadingTime],
     shikiConfig: {
-      theme: "vitesse-dark"
+      theme,
     }
   },
   integrations: [unocss(), mdx(), sitemap(), prefetch(), react()]
