@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "ignoreDeprecations": "5.0",
-    "verbatimModuleSyntax": true,
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   }
