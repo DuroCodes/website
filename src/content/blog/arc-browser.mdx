@@ -1,0 +1,74 @@
+---
+layout: ../../layouts/BlogPost.astro
+title: Arc Installation on Restricted MacOS
+description: How to install Arc on a restricted version of MacOS (Mosyle MDM).
+pubDate: 2/22/24
+---
+
+Arc is my personal favorite web browser, and this is how to install it on a restricted version of MacOS (such as a school computer).
+
+<br />
+
+# 1. Download the Arc Installer
+
+<br />
+
+First, download the Arc installer from the official website. You can do this by visiting [arc.net](https://arc.net) and clicking the "Download Arc" button.
+
+<br />
+
+This will download to your `Downloads` folder, under the name `Arc.dmg`.
+
+<br />
+
+# 2. Open the Installer
+
+<br />
+
+Open the `Arc.dmg` file by double-clicking it. This will mount the disk image and open a new window with the Arc application.
+
+<br />
+
+Once you've opened the disk image, you'll have to move it to your user's `Applications` folder. You can do this by pressing `Cmd + Space` and searching for `~/Applications`. Then, drag the `Arc` application from the disk image to the `Applications` folder.
+
+<br />
+
+# 3. Open Arc
+
+<br />
+
+Once Arc is moved to your Applications folder, try to open it. If it doesn't open you'll have to do some additional steps to get it to work.
+
+<br />
+
+# 4. Editing the Info.plist 
+
+<br />
+
+The way MacOS (Mosyle, in this case) restricts applications is by using a file called `Info.plist`. This file is located inside the `Arc.app` package. To edit it, you'll have to right-click on the `Arc` application and select `Show Package Contents`.
+
+<br />
+
+Once you've done that, navigate to `Contents` > `Info.plist`. Right-click on `Info.plist` and open it with a text editor. I recommend using `TextEdit` for this.
+
+<br />
+
+Once you've opened `Info.plist`, you'll have to edit the `CFBundleIdentifier` key. This is what MacOS uses to identify applications.
+
+<br />
+
+You can press `Cmd + F` and search for `CFBundleIdentifier`. Once you've found it, change it to something else, such as `company.xthebrowser.Browser`.
+
+```diff
+- <string>company.thebrowser.Browser</string>
++ <string>company.xthebrowser.Browser</string> 
+```
+
+<br />
+
+# 5. Open Arc
+
+<br />
+
+Once you've saved the changes to `Info.plist`, try to open Arc again. It should open without any issues. 🎉
+
