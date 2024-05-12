@@ -16,11 +16,13 @@ interface Repo {
 }
 
 const pinnedRepos = (await (
-  await fetch("https://gh-pinned-repos-tsj7ta5xfhep.deno.dev/?username=durocodes")
+  await fetch(
+    "https://gh-pinned-repos-tsj7ta5xfhep.deno.dev/?username=durocodes",
+  )
 ).json()) as Repo[];
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <BaseHead title={`${SITE_TITLE} home`} description={SITE_DESCRIPTION} />
@@ -36,8 +38,9 @@ const pinnedRepos = (await (
       </p>
       <br />
       <p>
-        I'm currently a senior in highschool. In my free time, I like to code,
-        listen to music, and play video games, mostly minecraft.
+        I'm currently computer science student, with a focus on information
+        systems. In my free time, I like to code, listen to music, and play
+        video games, mostly minecraft.
       </p>
       <br />
       <br />
