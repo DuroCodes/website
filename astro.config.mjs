@@ -14,9 +14,7 @@ export default defineConfig({
     extendDefaultPlugins: true,
     rehypePlugins: [rehypeAutolinkHeadings],
     remarkPlugins: [remarkReadingTime],
-    shikiConfig: {
-      theme,
-    }
+    shikiConfig: { theme }
   },
-  integrations: [unocss(), mdx(), sitemap(), prefetch(), react()]
+  integrations: [unocss({ injectReset: true }), mdx(), sitemap(), prefetch(), react()]
 });

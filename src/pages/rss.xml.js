@@ -1,6 +1,6 @@
 import rss, { pagesGlobToRssItems } from "@astrojs/rss";
 
-export const get = async (ctx) =>
+export const GET = async (ctx) =>
   rss({
     title: "duro • blog",
     description: "Personal website/blog on programming",
