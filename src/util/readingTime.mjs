@@ -1,5 +1,5 @@
-import getReadingtime from 'reading-time';
-import { toString } from 'mdast-util-to-string';
+import getReadingtime from "reading-time";
+import { toString } from "mdast-util-to-string";
 
 export const remarkReadingTime = () =>
   (tree, { data }) => {

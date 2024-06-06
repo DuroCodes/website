@@ -6,7 +6,13 @@ export interface Props {
   url: string;
 }
 
-export function Blog({ title, description, date, url, readingTime }: Props) {
+export default function Blog({
+  title,
+  description,
+  date,
+  url,
+  readingTime,
+}: Props) {
   return (
     <a
       href={url}
@@ -19,17 +25,13 @@ export function Blog({ title, description, date, url, readingTime }: Props) {
 
       <p className="text-sm md:text-base font-medium">{description}</p>
 
-      <div
-        className="flex items-center gap-x-2 text-(neutral-200 xs) md:text-sm font-medium"
-      >
+      <div className="flex items-center gap-x-2 text-(neutral-200 xs) md:text-sm font-medium">
         <time dateTime={date}>
-          {
-            new Date(date).toLocaleDateString("en-us", {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            })
-          }
+          {new Date(date).toLocaleDateString("en-us", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })}
         </time>
 
         <span>•</span>

@@ -1,28 +1,29 @@
-import { useEffect, useRef, useState } from 'react';
-import Fuse from 'fuse.js';
-import { Blog } from './Blog';
-import type { CollectionEntry } from 'astro:content';
+import { useEffect, useRef, useState } from "react";
+import Fuse, { type FuseResult } from "fuse.js";
+import type { CollectionEntry } from "astro:content";
+import Blog from "./Blog";
 
 export interface BlogPost {
   url: string;
-  frontmatter: CollectionEntry<'blog'>['data'] & {
+  frontmatter: CollectionEntry<"blog">["data"] & {
     readingTime: string;
   };
-};
+}
 
-export function BlogPosts({ posts }: { posts: BlogPost[]; }) {
+export function BlogPosts({ posts }: { posts: BlogPost[] }) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState<Fuse.FuseResult<BlogPost>[] | null>(null);
+  const [query, setQuery] = useState("");
+
+  const [results, setResults] = useState<FuseResult<BlogPost>[] | null>(null);
 
   const fuse = new Fuse(posts, {
     keys: [
       {
-        name: 'title',
+        name: "title",
         getFn: (post) => post.frontmatter.title,
       },
       {
-        name: 'description',
+        name: "description",
         getFn: (post) => post.frontmatter.description,
       },
     ],
@@ -30,7 +31,7 @@ export function BlogPosts({ posts }: { posts: BlogPost[]; }) {
   });
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search).get('q');
+    const searchParams = new URLSearchParams(window.location.search).get("q");
 
     if (searchParams) setQuery(searchParams);
 
