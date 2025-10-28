@@ -1,0 +1,135 @@
+---
+layout: ../../layouts/BlogPost.astro
+title: Lily58 Build
+description: This is my build of the Lily 58 keyboard, this shouldn't really be a guide; I'm just here to show off my build process.
+pubDate: 10/27/25
+---
+
+Here's my build of the Lily58 keyboard. I'm currently using the [Lily58](https://lily58.com/) keyboard, and it's definitely a big learning curve, but it's a really fun project to work on.
+
+<br/>
+
+To preface, I currently "hunt and peck", so it's been hard to type out anything, really. The layout is completely different from a regular column-staggered keyboard, so it's been super hard to "retrain" my muscle memory that's already established with really bad "typing posture". I also use a [tiling window manager](https://github.com/durocodes/dotfiles), so the keybinds are a lot different from my regular Macbook keyboard. 
+
+<br/>
+
+## The Build
+
+![Lily58 Final Build](/public/images/blog/lily58-final.png)
+
+The build is based on the Lily58 kit from Boardsource. I sourced the PCB, diodes, and the hotswap sockets from them. Originally, I bought all of the parts (minus the PCB) from AliExpress, but the first go-around was a bit of a disaster, and I just decided to source everything from them since it would be easier.
+
+<br/>
+
+The rest of the parts (the MCU, etc.) are all from AliExpress, you can see my detailed part list on this [Google Sheet](https://docs.google.com/spreadsheets/d/1SXNXokOj0V8_TVgDddhbO6jhPrWesU6BQCc4dfMBPfk/edit?gid=0#gid=0).
+
+<br/>
+
+This is my first time building a keyboard, and soldering for that matter. I'm not exactly the best at soldering, but my first failure tought me a lot (even though I lost like $60 worth of parts).
+
+<br/>
+
+## The Process
+
+<br/>
+
+This won't be much of a tutorial, but I'll try to explain the process as best as I can. The supplies I use for soldering are just a Pinecil 2, some 63/37 solder (0.5mm diameter), and a flux pen from ChipQuik. I printed out a solder spool holder from [Makerworld](https://makerworld.com/en/models/924575-solder-wire-stand-soldering-wire-holder#profileId-887329), and I also printed out a soldering iron stand from [Makerworld](https://makerworld.com/en/models/1177626-pinecil-soldering-iron-stand?from=search#profileId-1187037), but I slightly modified it so I wouldn't need a bearing and so it would fit my slightly larger brass wool from Walmart.
+
+<br/>
+
+## Firmware
+
+<br/>
+
+I would recommend doing the firmware before you solder the MCU into the board, as it's a little hard to get the MCU into the boot mode otherwise. You may need to do this to make sure that you don't receieve a defective MCU (which is what happened to me, thanks Amazon).
+
+<br/>
+
+You can follow the instructions on the [QMK website](https://docs.qmk.fm/) to flash the firmware to the MCU. My fork is [here](https://github.com/durocodes/qmk_firmware/), in case you want to use it. It should work for this buid, but it's not really perfect.
+
+<br/>
+
+### Diodes
+
+<br/>
+
+The diodes are the lowest profile part, so it's generally recommended to solder them first. Generally, you'd use regular rectangular diodes, but Boardsource uses MELF diodes, which are a little bit harder to solder since they like to roll around; that's how they got the nickname "Most End up Lying on the Floor".
+
+<br/>
+
+I would recommend watching a video on this, but here's what it looks like after you solder on the diodes:
+
+![Lily58 Diodes](/public/images/blog/lily58-diodes.jpeg)
+
+### Hotswap Sockets
+
+<br/>
+
+The hotswap sockets are the next part to solder. These are the parts that allow you to swap out the switches without having to desolder them. I didn't solder them exactly how it's recommended to, but it worked for the most part. I think I overheated the pads with my method, so I recommend you actually watch a video on this.
+
+![Lily58 Hotswap Sockets](/public/images/blog/lily58-hotswap-sockets.png)
+
+<br/>
+
+### Everything Else
+
+<br/>
+
+Soldering everything else is pretty straightforward; mainly just through-hole components, which should't be too much of a problem (unless you're me). I also didn't take any more photos of the process, but it's pretty straightforward; it's something like this:
+
+<br/>
+
+- Solder the reset switch
+- Solder the TRRS jack
+- Solder the MCU sockets (you might want to tape it down from the front)
+- Solder the MCU into the sockets with the provided pins.
+
+<br/>
+
+## Case Assembly
+
+<br/>
+
+The case was 3D printed from [this case](https://www.printables.com/model/938304-lily58-case-remix-wwristrests-and-carry-case-board) on Printables. If I were to go back and do it again, I would probably print a slightly different case, since this one has some issues with stripping the screw holes when you remove the case. For this reason, I'm not even screwing down the case since it holds fine with the snap-fit.
+
+<br/>
+
+You need to print out the case, plate, and MCU cover, and then assemble them together. The MCU cover screws in from the bottom of the PCB, so make sure that you attach that first. Once you've attached the cover, you can go ahead and put together the plate. 
+
+<br/>
+
+The plate assembly is pretty straightforward, you just need to make sure that you bend the plate whenever you're putting in your first few switches, or you might rip out the hotswap sockets (more on this in the next section).
+
+<br/>
+
+Once you've put together the plate, you can snap it into the case. The plate is held in place by the snap-fit, so you don't need to screw it down, but you can if you want it to be more secure. I recommend adding some [rubber feet](https://www.amazon.com/Juminiz-Silicone-Adhesive-Cabinets-Furniture/dp/B0DXH5D1FQ) to the bottom of the case to prevent it from sliding around, and it helps it feel more "premium", if that makes sense.
+
+<br/>
+
+## The Issues
+
+<br/>
+
+I had many issues with this build, to put it lightly. I would definitely recommend practicing soldering before you start building your own keyboard; it'll save you a lot of time and money in the long run. You can pick up a cheap soldering kit from Amazon or AliExpress and learn that way instead of ruining your PCB.
+
+<br/>
+
+On my first attempt, I ended up ripping a hotswap socket off the PCB while trying to put together the plate, so I ended up buying a new PCB and starting over. It was technically possible for me to fix it, but I decided to just start over since it was a lot of work, and I had already messed up the right side by soldering the MCU incorrectly.
+
+![Ripped Hotswap Socket](/public/images/blog/lily58-ripped-hotswap-socket.png)
+
+
+After that, I decided to just make a new board. This was coming together a lot better, but the new issue was that the new MCUs I ordered from Amazon were defective. I would have expected Amazon to be more reliable than the AliExpress sellers, but I guess I learned not to trust Amazon as "reliable".
+
+<br/>
+
+I ended up getting a refund, and I was able to use the old MCUs from the first board, since they were socketed so I could just pull them out and use them on the new board. I was originally going to use the old board for a macropad, so I didn't bother removing the MCU from the first board until this issue.
+
+<br/>
+
+## Conclusion
+
+<br/>
+
+Anyways, I'm happy with the final result, and I'm able to type out this post, even though it's taking me like a minute for each word. I'm sure I'll get better with time and some [keybr](https://keybr.com/) practice. Hopefully I'll be able to type faster than my current WPM, which is like 150 WPM.
+
