@@ -3,23 +3,6 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import Project from "../components/Project.astro";
-
-interface Repo {
-  owner: string;
-  repo: string;
-  description: string;
-  language: string;
-  languageColor: string;
-  stars: string;
-  forks: string;
-}
-
-const pinnedRepos = (await (
-  await fetch(
-    "https://gh-pinned-repos-tsj7ta5xfhep.deno.dev/?username=durocodes",
-  )
-).json()) as Repo[];
 ---
 
 <!DOCTYPE html>
@@ -29,29 +12,27 @@ const pinnedRepos = (await (
   </head>
 
   <body>
-    <Header title={SITE_TITLE} />
+    <Header />
     <main class="text-lg text-neutral-200">
-      <h1 class="text-4xl pb-2">I'm Duro</h1>
+      <h1 class="text-4xl">I'm David 👋</h1>
+      <p class="text-sm">(or Duro online)</p>
+
+      <br/>
       <p>
-        I'm a (mostly) self-taught developer, and I like to work with
-        <b>TypeScript</b>, <b>Kotlin</b>, and a bit of <b>Rust</b>.
+        Right now, I'm a student at East Tennessee State University, where I'm studying computer science. I graduate in December of 2026, as a part of the third cohort of <a href="https://www.blueskytn.com/">BlueSky</a>, an accelerated BS program.
       </p>
       <br />
+
+      <p>I enjoy working as a full-stack software engineer, working with languages such as <b>TypeScript</b>, <b>Python</b>, and <b>Rust</b>.
+      I've played around with a lot of different languages, frameworks, and tools, but I find myself always coming back to these.</p>
+      <br />
+
       <p>
         I'm currently a computer science student, with a focus on information
         systems. In my free time, I like to code,
         <a href="https://www.last.fm/user/duroo_">listen to music</a>, and play
         video games (mostly Minecraft).
       </p>
-      <br />
-      <br />
-      <h2 class="text-3xl pb-4">My Projects</h2>
-
-      <section
-        class="grid grid-cols-1 gap-4 auto-cols-max sm:grid-cols-2 sm:gap-3"
-      >
-        {pinnedRepos.map((repo) => <Project {...repo} />)}
-      </section>
     </main>
     <Footer />
   </body>

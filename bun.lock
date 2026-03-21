@@ -13,7 +13,6 @@
         "@types/react-dom": "^18.3.0",
         "astro": "5.16.0",
         "astro-og-canvas": "^0.5.0",
-        "flamethrower-router": "^0.0.0-meme.12",
         "fuse.js": "^7.0.0",
         "mdast-util-to-string": "^4.0.0",
         "react": "^18.3.1",
@@ -600,8 +599,6 @@
     "fdir": ["fdir@6.5.0", "", { "peerDependencies": { "picomatch": "^3 || ^4" }, "optionalPeers": ["picomatch"] }, "sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg=="],
 
     "fill-range": ["fill-range@7.1.1", "", { "dependencies": { "to-regex-range": "^5.0.1" } }, "sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg=="],
-
-    "flamethrower-router": ["flamethrower-router@0.0.0-meme.12", "", {}, "sha512-PWcNrjzItwk61RTk/SbbKJNcAgl6qCXH8xkZjGjUGV/dgKAnURci+k+Yk8emubUQWTdAd1kSqujy0VRjoeEgxg=="],
 
     "flattie": ["flattie@1.1.1", "", {}, "sha512-9UbaD6XdAL97+k/n+N7JwX46K/M6Zc6KcFYskrYL8wbBV/Uyk0CTAMY0VT+qiK5PM7AIc9aTWYtq65U7T+aCNQ=="],
 

@@ -1,0 +1,67 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Project from "../components/Project.astro";
+import Experience from "../components/Experience.astro";
+
+interface Repo {
+  owner: string;
+  repo: string;
+  description: string;
+  language: string;
+  languageColor: string;
+  stars: string;
+  forks: string;
+}
+
+const pinnedRepos = await (
+  await fetch(
+    "https://gh-pinned-repos-tsj7ta5xfhep.deno.dev/?username=durocodes",
+  )
+).json() as Repo[];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <BaseHead
+      title={`${SITE_TITLE} work`}
+      description={`${SITE_DESCRIPTION} — experience and projects`}
+    />
+  </head>
+
+  <body>
+    <Header />
+    <main class="text-lg text-neutral-200">
+      <h1 class="text-4xl pb-6">Work</h1>
+
+      <h2 class="text-3xl pb-4">Experience</h2>
+
+      <section class="grid grid-cols-1 gap-4 auto-cols-max pb-10">
+        <Experience
+          title="Software Engineer Intern"
+          company="BlueCross BlueShield of Tennessee"
+          dateRange="Jan 2026 — Present"
+          summary="Worked on the Payments team to help write claims processing workflows in C#, PowerShell, and SQL Server."
+        />
+        <Experience
+          title="Full-Stack Software Engineer Intern"
+          company="Gemstone Trading"
+          dateRange="Aug 2025 — Present"
+          summary="Worked directly with the founder to help build initial algorithmic trading web application, expected to launch in April 2026."
+        />
+      </section>
+
+      <h2 class="text-3xl pb-4">Projects</h2>
+
+      <section
+        class="grid grid-cols-1 gap-4 auto-cols-max sm:grid-cols-2 sm:gap-3"
+      >
+        {pinnedRepos.map((repo) => <Project {...repo} />)}
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
