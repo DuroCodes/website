@@ -7,16 +7,63 @@ export interface Experience {
 
 export const githubUser = "DuroCodes";
 
-export const pinnedReposUrl = "https://pinned.berrysauce.dev/get/durocodes";
+export const githubReposUrl = `https://api.github.com/users/${githubUser}/repos?per_page=100&type=owner`;
 
-export const pinnedRepos = [
-  "spongebin",
-  "audit",
-  "spark",
-  "pokefetch",
-  "advent-of-code",
-  "crony",
-];
+export const pinnedRepos = {
+  spongebin: "TypeScript",
+  audit: "Rust",
+  spark: "TypeScript",
+  pokefetch: "Go",
+  "advent-of-code": "Rust",
+  crony: "Rust",
+};
+
+export const repoStats = (body: unknown) => {
+  if (!Array.isArray(body)) return {};
+
+  return Object.fromEntries(
+    body.flatMap((repo) => {
+      if (
+        typeof repo !== "object" ||
+        repo === null ||
+        !("name" in repo) ||
+        typeof repo.name !== "string" ||
+        !("stargazers_count" in repo) ||
+        typeof repo.stargazers_count !== "number" ||
+        !("forks_count" in repo) ||
+        typeof repo.forks_count !== "number"
+      ) {
+        return [];
+      }
+
+      return [
+        [
+          repo.name,
+          {
+            stars: String(repo.stargazers_count),
+            forks: String(repo.forks_count),
+          },
+        ],
+      ];
+    }),
+  );
+};
+
+export const loadRepoStats = async () => {
+  try {
+    const response = await fetch(githubReposUrl, {
+      headers: {
+        Accept: "application/vnd.github+json",
+        "User-Agent": "durocodes-website",
+      },
+    });
+    if (!response.ok) return {};
+
+    return repoStats(await response.json());
+  } catch {
+    return {};
+  }
+};
 
 export const experience: Experience[] = [
   {

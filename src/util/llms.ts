@@ -100,8 +100,11 @@ export const llmsFullTxt = async (site: URL | undefined) => {
     )
     .join("\n\n");
 
-  const projectText = pinnedRepos
-    .map((repo) => `- [${repo}](https://github.com/${githubUser}/${repo})`)
+  const projectText = Object.entries(pinnedRepos)
+    .map(
+      ([repo, language]) =>
+        `- [${repo}](https://github.com/${githubUser}/${repo}): ${language}`,
+    )
     .join("\n");
 
   const postText = posts

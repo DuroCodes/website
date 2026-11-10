@@ -5,7 +5,9 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Project from "../components/Project.astro";
 import Experience from "../components/Experience.astro";
-import { experience, pinnedRepos } from "../data/work";
+import { experience, loadRepoStats, pinnedRepos } from "../data/work";
+
+const stats = await loadRepoStats();
 ---
 
 <!DOCTYPE html>
@@ -33,71 +35,43 @@ import { experience, pinnedRepos } from "../data/work";
       <section
         class="grid grid-cols-1 gap-4 auto-cols-max sm:grid-cols-2 sm:gap-3"
       >
-        {pinnedRepos.map((repo) => <Project repo={repo} />)}
+        {
+          Object.entries(pinnedRepos).map(([repo, language]) => (
+            <Project
+              repo={repo}
+              language={language}
+              stars={stats[repo]?.stars}
+              forks={stats[repo]?.forks}
+            />
+          ))
+        }
       </section>
     </main>
     <Footer />
     <script>
-      import { pinnedReposUrl } from "../data/work";
+      import { githubReposUrl, repoStats } from "../data/work";
 
-      const text = (value: unknown) => (typeof value === "string" ? value : "");
-
-      const count = (value: unknown) =>
-        typeof value === "number" ? String(value) : "";
-
-      const loadPinnedRepos = async () => {
-        const response = await fetch(pinnedReposUrl);
+      const refreshRepoStats = async () => {
+        const response = await fetch(githubReposUrl, {
+          headers: { Accept: "application/vnd.github+json" },
+        });
         if (!response.ok) return;
 
-        const body: unknown = await response.json();
-        if (!Array.isArray(body)) return;
-
-        const byName = new Map(
-          body.flatMap((repo) => {
-            if (
-              typeof repo !== "object" ||
-              repo === null ||
-              !("name" in repo) ||
-              typeof repo.name !== "string"
-            ) {
-              return [];
-            }
-
-            return [[repo.name, repo] as const];
-          }),
-        );
+        const stats = repoStats(await response.json());
 
         document.querySelectorAll("[data-repo]").forEach((card) => {
           const name = card.getAttribute("data-repo");
-          const repo = name ? byName.get(name) : undefined;
+          const repo = name ? stats[name] : undefined;
           if (!repo) return;
 
-          const description = card.querySelector("[data-description]");
           const stars = card.querySelector("[data-stars]");
           const forks = card.querySelector("[data-forks]");
-          const language = card.querySelector("[data-language]");
-          const languageColor = card.querySelector("[data-language-color]");
-          const languageGroup = card.querySelector("[data-language-group]");
-
-          if (description) description.textContent = text(repo.description);
-          if (stars) stars.textContent = count(repo.stars) || "–";
-          if (forks) forks.textContent = count(repo.forks) || "–";
-
-          const languageName = text(repo.language);
-          if (!languageName || !language || !languageGroup) return;
-
-          language.textContent = languageName;
-          languageGroup.classList.remove("hidden");
-          languageGroup.classList.add("inline-flex");
-
-          const color = text(repo.languageColor);
-          if (languageColor && /^#[0-9a-fA-F]{3,8}$/.test(color)) {
-            languageColor.setAttribute("style", `background-color: ${color}`);
-          }
+          if (stars) stars.textContent = repo.stars;
+          if (forks) forks.textContent = repo.forks;
         });
       };
 
-      loadPinnedRepos();
+      refreshRepoStats();
     </script>
   </body>
 </html>
