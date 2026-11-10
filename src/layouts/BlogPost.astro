@@ -2,6 +2,8 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { SITE_URL } from "../config";
+import { formatPostDate } from "../util/dates";
 
 export interface Props {
   content: {
@@ -16,11 +18,11 @@ const {
   content: { title, description, pubDate, readingTime },
 } = Astro.props;
 
-const date = new Date(pubDate).toLocaleDateString("en-us", {
-  year: "numeric",
-  month: "short",
-  day: "numeric",
-});
+const date = formatPostDate(pubDate);
+const markdownUrl = new URL(
+  `${Astro.url.pathname.replace(/\/$/, "")}.md`,
+  Astro.site ?? SITE_URL,
+);
 
 const input = JSON.stringify({
   title,
@@ -34,6 +36,9 @@ const input = JSON.stringify({
       title={title}
       description={description}
       image={`https://og.durocodes.me/api/og?input=${input}`}
+      ogType="article"
+      publishedTime={pubDate}
+      markdownUrl={markdownUrl}
     />
   </head>
 
@@ -60,15 +65,9 @@ const input = JSON.stringify({
               ></path>
             </svg>
 
-            <time class="text-base"
-              >{
-                new Date(pubDate).toLocaleDateString("en-us", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })
-              }</time
-            >
+            <time class="text-base" datetime={pubDate}>
+              {date}
+            </time>
           </div>
 
           <div class="flex gap-x-2 items-center">

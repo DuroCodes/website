@@ -1,4 +1,6 @@
 User-agent: *
 Disallow:
 
+# Machine-readable guide: https://www.durocodes.me/llms.txt
+
 Sitemap: https://www.durocodes.me/sitemap-index.xml

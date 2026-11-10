@@ -1,3 +1,5 @@
+import { formatPostDate } from "../util/dates";
+
 export interface Props {
   title: string;
   description: string;
@@ -6,13 +8,7 @@ export interface Props {
   url: string;
 }
 
-export default function Blog({
-  title,
-  description,
-  date,
-  url,
-  readingTime,
-}: Props) {
+const Blog = ({ title, description, date, url, readingTime }: Props) => {
   return (
     <a
       href={url}
@@ -26,13 +22,7 @@ export default function Blog({
       <p className="text-sm md:text-base font-medium">{description}</p>
 
       <div className="flex items-center gap-x-2 text-(neutral-200 xs) md:text-sm font-medium">
-        <time dateTime={date}>
-          {new Date(date).toLocaleDateString("en-us", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          })}
-        </time>
+        <time dateTime={date}>{formatPostDate(date)}</time>
 
         <span>•</span>
 
@@ -40,4 +30,6 @@ export default function Blog({
       </div>
     </a>
   );
-}
+};
+
+export default Blog;

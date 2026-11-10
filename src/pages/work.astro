@@ -5,25 +5,12 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Project from "../components/Project.astro";
 import Experience from "../components/Experience.astro";
+import { experience, loadRepoStats, pinnedRepos } from "../data/work";
 
-interface Repo {
-  owner: string;
-  repo: string;
-  description: string;
-  language: string;
-  languageColor: string;
-  stars: string;
-  forks: string;
-}
-
-const pinnedRepos = await (
-  await fetch(
-    "https://gh-pinned-repos-tsj7ta5xfhep.deno.dev/?username=durocodes",
-  )
-).json() as Repo[];
+const stats = await loadRepoStats();
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <BaseHead
@@ -40,18 +27,7 @@ const pinnedRepos = await (
       <h2 class="text-3xl pb-4">Experience</h2>
 
       <section class="grid grid-cols-1 gap-4 auto-cols-max pb-10">
-        <Experience
-          title="Software Engineer Intern"
-          company="BlueCross BlueShield of Tennessee"
-          dateRange="Jan 2026 — May 2026"
-          summary="Worked on the Payments team to help write claims processing workflows in C#, PowerShell, and SQL Server."
-        />
-        <Experience
-          title="Full-Stack Software Engineer Intern"
-          company="Gemstone Trading"
-          dateRange="Aug 2025 — Present"
-          summary="Worked directly with the founder to help build initial algorithmic trading web application, expected to launch in April 2026."
-        />
+        {experience.map((role) => <Experience {...role} />)}
       </section>
 
       <h2 class="text-3xl pb-4">Projects</h2>
@@ -59,9 +35,43 @@ const pinnedRepos = await (
       <section
         class="grid grid-cols-1 gap-4 auto-cols-max sm:grid-cols-2 sm:gap-3"
       >
-        {pinnedRepos.map((repo) => <Project {...repo} />)}
+        {
+          Object.entries(pinnedRepos).map(([repo, language]) => (
+            <Project
+              repo={repo}
+              language={language}
+              stars={stats[repo]?.stars}
+              forks={stats[repo]?.forks}
+            />
+          ))
+        }
       </section>
     </main>
     <Footer />
+    <script>
+      import { githubReposUrl, repoStats } from "../data/work";
+
+      const refreshRepoStats = async () => {
+        const response = await fetch(githubReposUrl, {
+          headers: { Accept: "application/vnd.github+json" },
+        });
+        if (!response.ok) return;
+
+        const stats = repoStats(await response.json());
+
+        document.querySelectorAll("[data-repo]").forEach((card) => {
+          const name = card.getAttribute("data-repo");
+          const repo = name ? stats[name] : undefined;
+          if (!repo) return;
+
+          const stars = card.querySelector("[data-stars]");
+          const forks = card.querySelector("[data-forks]");
+          if (stars) stars.textContent = repo.stars;
+          if (forks) forks.textContent = repo.forks;
+        });
+      };
+
+      refreshRepoStats();
+    </script>
   </body>
 </html>
