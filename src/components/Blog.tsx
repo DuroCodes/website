@@ -8,13 +8,7 @@ export interface Props {
   url: string;
 }
 
-const Blog = ({
-  title,
-  description,
-  date,
-  url,
-  readingTime,
-}: Props) => {
+const Blog = ({ title, description, date, url, readingTime }: Props) => {
   return (
     <a
       href={url}
