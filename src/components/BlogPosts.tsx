@@ -10,7 +10,7 @@ export interface BlogPost {
   };
 }
 
-export function BlogPosts({ posts }: { posts: BlogPost[] }) {
+export const BlogPosts = ({ posts }: { posts: BlogPost[] }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState("");
 
@@ -116,4 +116,4 @@ export function BlogPosts({ posts }: { posts: BlogPost[] }) {
       )}
     </>
   );
-}
+};

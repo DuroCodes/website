@@ -1,7 +1,7 @@
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import { parsePostDate } from "./dates";
 
-export async function getPublishedPosts(): Promise<CollectionEntry<"blog">[]> {
+export const getPublishedPosts = async () => {
   const posts = await getCollection("blog", ({ data }) => data.draft !== true);
 
   return posts.sort(
@@ -9,4 +9,4 @@ export async function getPublishedPosts(): Promise<CollectionEntry<"blog">[]> {
       parsePostDate(b.data.pubDate).valueOf() -
       parsePostDate(a.data.pubDate).valueOf(),
   );
-}
+};

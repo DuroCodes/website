@@ -5,9 +5,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Project from "../components/Project.astro";
 import Experience from "../components/Experience.astro";
-import { experience, getPinnedRepos } from "../data/work";
-
-const pinnedRepos = await getPinnedRepos();
+import { experience, pinnedRepos } from "../data/work";
 ---
 
 <!DOCTYPE html>
@@ -35,9 +33,55 @@ const pinnedRepos = await getPinnedRepos();
       <section
         class="grid grid-cols-1 gap-4 auto-cols-max sm:grid-cols-2 sm:gap-3"
       >
-        {pinnedRepos.map((repo) => <Project {...repo} />)}
+        {pinnedRepos.map((repo) => <Project repo={repo} />)}
       </section>
     </main>
     <Footer />
+    <script>
+      import { githubUser } from "../data/work";
+
+      const reposFromGitHub = async () => {
+        const response = await fetch(
+          `https://api.github.com/users/${githubUser}/repos?per_page=100&type=owner`,
+          { headers: { Accept: "application/vnd.github+json" } },
+        );
+        if (!response.ok) return;
+
+        const body: unknown = await response.json();
+        if (!Array.isArray(body)) return;
+
+        const byName = new Map(
+          body.flatMap((repo) => {
+            if (
+              typeof repo !== "object" ||
+              repo === null ||
+              !("name" in repo) ||
+              !("stargazers_count" in repo) ||
+              !("forks_count" in repo) ||
+              typeof repo.name !== "string" ||
+              typeof repo.stargazers_count !== "number" ||
+              typeof repo.forks_count !== "number"
+            ) {
+              return [];
+            }
+
+            return [[repo.name, repo] as const];
+          }),
+        );
+
+        document.querySelectorAll("[data-repo]").forEach((card) => {
+          const name = card.getAttribute("data-repo");
+          const repo = name ? byName.get(name) : undefined;
+          if (!repo) return;
+
+          const stars = card.querySelector("[data-stars]");
+          const forks = card.querySelector("[data-forks]");
+          if (stars) stars.textContent = String(repo.stargazers_count);
+          if (forks) forks.textContent = String(repo.forks_count);
+        });
+      };
+
+      reposFromGitHub();
+    </script>
   </body>
 </html>

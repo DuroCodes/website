@@ -2,13 +2,13 @@
 import "../../styles/global.css";
 import { getCollection } from "astro:content";
 
-export async function getStaticPaths() {
+export const getStaticPaths = async () => {
   const blogEntries = await getCollection("blog");
   return blogEntries.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry },
   }));
-}
+};
 
 const { entry } = Astro.props;
 

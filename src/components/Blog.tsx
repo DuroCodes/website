@@ -8,13 +8,13 @@ export interface Props {
   url: string;
 }
 
-export default function Blog({
+const Blog = ({
   title,
   description,
   date,
   url,
   readingTime,
-}: Props) {
+}: Props) => {
   return (
     <a
       href={url}
@@ -36,4 +36,6 @@ export default function Blog({
       </div>
     </a>
   );
-}
+};
+
+export default Blog;

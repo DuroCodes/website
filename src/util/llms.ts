@@ -1,30 +1,29 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import type { CollectionEntry } from "astro:content";
-import { experience, getPinnedRepos } from "../data/work";
+import { experience, githubUser, pinnedRepos } from "../data/work";
 import { getPublishedPosts } from "./posts";
 
 const FALLBACK_SITE = "https://www.durocodes.me";
 
-export function pageUrl(site: URL | undefined, pathname: string): string {
+export const pageUrl = (site: URL | undefined, pathname: string) => {
   const hasExtension = pathname.split("/").pop()?.includes(".");
   const normalized =
     pathname.endsWith("/") || hasExtension ? pathname : `${pathname}/`;
 
   return new URL(normalized, site ?? FALLBACK_SITE).href;
-}
+};
 
-function markdownBody(source: string): string {
-  return source
+const markdownBody = (source: string) =>
+  source
     .replace(/<br\s*\/?>/gi, "\n\n")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
-}
 
-export function postMarkdown(
+export const postMarkdown = (
   post: CollectionEntry<"blog">,
   site: URL | undefined,
-): string {
+) => {
   const canonical = pageUrl(site, `/blog/${post.slug}`);
 
   return [
@@ -38,18 +37,18 @@ export function postMarkdown(
     markdownBody(post.body),
     "",
   ].join("\n");
-}
+};
 
-async function faqMarkdown(): Promise<string> {
+const faqMarkdown = async () => {
   const raw = await readFile(
     path.join(process.cwd(), "src/pages/faq.md"),
     "utf8",
   );
   const body = raw.replace(/^---[\s\S]*?---\s*/, "");
   return markdownBody(body);
-}
+};
 
-export async function llmsTxt(site: URL | undefined): Promise<string> {
+export const llmsTxt = async (site: URL | undefined) => {
   const posts = await getPublishedPosts();
   const home = pageUrl(site, "/");
   const postLinks = posts
@@ -89,14 +88,10 @@ ${postLinks}
 
 - [Full site text](${pageUrl(site, "/llms-full.txt")}): Bio, experience, FAQ, and every post in one file
 `;
-}
+};
 
-export async function llmsFullTxt(site: URL | undefined): Promise<string> {
-  const [posts, repos, faq] = await Promise.all([
-    getPublishedPosts(),
-    getPinnedRepos(),
-    faqMarkdown(),
-  ]);
+export const llmsFullTxt = async (site: URL | undefined) => {
+  const [posts, faq] = await Promise.all([getPublishedPosts(), faqMarkdown()]);
 
   const experienceText = experience
     .map(
@@ -105,12 +100,8 @@ export async function llmsFullTxt(site: URL | undefined): Promise<string> {
     )
     .join("\n\n");
 
-  const projectText = repos
-    .map((repo) => {
-      const description = repo.description || "No description";
-      const language = repo.language ? ` (${repo.language})` : "";
-      return `- [${repo.repo}](https://github.com/${repo.owner}/${repo.repo}): ${description}${language}`;
-    })
+  const projectText = pinnedRepos
+    .map((repo) => `- [${repo}](https://github.com/${githubUser}/${repo})`)
     .join("\n");
 
   const postText = posts
@@ -166,4 +157,4 @@ ${faq}
 
 ${postText}
 `;
-}
+};
