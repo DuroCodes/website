@@ -1,3 +1,5 @@
+import { formatPostDate } from "../util/dates";
+
 export interface Props {
   title: string;
   description: string;
@@ -26,13 +28,7 @@ export default function Blog({
       <p className="text-sm md:text-base font-medium">{description}</p>
 
       <div className="flex items-center gap-x-2 text-(neutral-200 xs) md:text-sm font-medium">
-        <time dateTime={date}>
-          {new Date(date).toLocaleDateString("en-us", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          })}
-        </time>
+        <time dateTime={date}>{formatPostDate(date)}</time>
 
         <span>•</span>
 

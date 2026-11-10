@@ -1,21 +1,15 @@
 import rss from "@astrojs/rss";
-import { getCollection } from "astro:content";
+import { rssDate } from "../util/dates.ts";
+import { getPublishedPosts } from "../util/posts.ts";
 
 export const GET = async (ctx) => {
-  const posts = await getCollection("blog");
-  const items = posts
-    .filter((post) => !post.data.draft)
-    .sort(
-      (a, b) =>
-        new Date(b.data.pubDate).valueOf() -
-        new Date(a.data.pubDate).valueOf(),
-    )
-    .map((post) => ({
-      link: `/blog/${post.slug}/`,
-      title: post.data.title,
-      pubDate: new Date(post.data.pubDate),
-      description: post.data.description,
-    }));
+  const posts = await getPublishedPosts();
+  const items = posts.map((post) => ({
+    link: `/blog/${post.slug}/`,
+    title: post.data.title,
+    pubDate: rssDate(post.data.pubDate),
+    description: post.data.description,
+  }));
 
   return rss({
     title: "duro • blog",
