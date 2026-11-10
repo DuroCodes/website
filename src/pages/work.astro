@@ -38,13 +38,15 @@ import { experience, pinnedRepos } from "../data/work";
     </main>
     <Footer />
     <script>
-      import { githubUser } from "../data/work";
+      import { pinnedReposUrl } from "../data/work";
 
-      const reposFromGitHub = async () => {
-        const response = await fetch(
-          `https://api.github.com/users/${githubUser}/repos?per_page=100&type=owner`,
-          { headers: { Accept: "application/vnd.github+json" } },
-        );
+      const text = (value: unknown) => (typeof value === "string" ? value : "");
+
+      const count = (value: unknown) =>
+        typeof value === "number" ? String(value) : "";
+
+      const loadPinnedRepos = async () => {
+        const response = await fetch(pinnedReposUrl);
         if (!response.ok) return;
 
         const body: unknown = await response.json();
@@ -56,11 +58,7 @@ import { experience, pinnedRepos } from "../data/work";
               typeof repo !== "object" ||
               repo === null ||
               !("name" in repo) ||
-              !("stargazers_count" in repo) ||
-              !("forks_count" in repo) ||
-              typeof repo.name !== "string" ||
-              typeof repo.stargazers_count !== "number" ||
-              typeof repo.forks_count !== "number"
+              typeof repo.name !== "string"
             ) {
               return [];
             }
@@ -74,14 +72,32 @@ import { experience, pinnedRepos } from "../data/work";
           const repo = name ? byName.get(name) : undefined;
           if (!repo) return;
 
+          const description = card.querySelector("[data-description]");
           const stars = card.querySelector("[data-stars]");
           const forks = card.querySelector("[data-forks]");
-          if (stars) stars.textContent = String(repo.stargazers_count);
-          if (forks) forks.textContent = String(repo.forks_count);
+          const language = card.querySelector("[data-language]");
+          const languageColor = card.querySelector("[data-language-color]");
+          const languageGroup = card.querySelector("[data-language-group]");
+
+          if (description) description.textContent = text(repo.description);
+          if (stars) stars.textContent = count(repo.stars) || "–";
+          if (forks) forks.textContent = count(repo.forks) || "–";
+
+          const languageName = text(repo.language);
+          if (!languageName || !language || !languageGroup) return;
+
+          language.textContent = languageName;
+          languageGroup.classList.remove("hidden");
+          languageGroup.classList.add("inline-flex");
+
+          const color = text(repo.languageColor);
+          if (languageColor && /^#[0-9a-fA-F]{3,8}$/.test(color)) {
+            languageColor.setAttribute("style", `background-color: ${color}`);
+          }
         });
       };
 
-      reposFromGitHub();
+      loadPinnedRepos();
     </script>
   </body>
 </html>

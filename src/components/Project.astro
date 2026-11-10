@@ -15,10 +15,13 @@ const { repo } = Astro.props;
   class="hover:no-underline"
 >
   <div
-    class="flex flex-col justify-between gap-y-4 border border-neutral-700 bg-themeBlack hover:scale-105 ease-out transition-transform p-4 rounded-xl"
+    class="min-h-36 flex flex-col justify-between gap-y-2 border border-neutral-700 bg-themeBlack hover:scale-105 ease-out transition-transform p-4 rounded-xl"
   >
-    <span class="text-xl font-medium">{repo}</span>
-    <div class="flex items-center gap-x-2 text-(sm neutral-200)">
+    <div class="flex flex-col gap-y-2">
+      <span class="text-xl font-medium">{repo}</span>
+      <p data-description class="text-(sm neutral-200)"></p>
+    </div>
+    <div class="flex flex-wrap items-center gap-x-2 text-(sm neutral-200)">
       <div class="flex gap-x-1 items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -54,6 +57,15 @@ const { repo } = Astro.props;
         </svg>
         <span data-forks>–</span>
       </div>
+
+      <span data-language-group class="hidden items-center gap-x-2">
+        <span>•</span>
+        <span
+          data-language-color
+          class="inline-block h-3 w-3 rounded-full"
+        ></span>
+        <span data-language></span>
+      </span>
     </div>
   </div>
 </a>

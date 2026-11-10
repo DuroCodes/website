@@ -7,6 +7,8 @@ export interface Experience {
 
 export const githubUser = "DuroCodes";
 
+export const pinnedReposUrl = "https://pinned.berrysauce.dev/get/durocodes";
+
 export const pinnedRepos = [
   "spongebin",
   "audit",
