@@ -1,4 +1,4 @@
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import { postMarkdown } from "../../util/llms";
 
 export const getStaticPaths = async () => {
@@ -10,7 +10,13 @@ export const getStaticPaths = async () => {
   }));
 };
 
-export const GET = ({ props, site }) => {
+export const GET = ({
+  props,
+  site,
+}: {
+  props: { post: CollectionEntry<"blog"> };
+  site: URL;
+}) => {
   return new Response(postMarkdown(props.post, site), {
     headers: {
       "Content-Type": "text/markdown; charset=utf-8",
