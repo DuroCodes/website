@@ -29,9 +29,7 @@ export const repoStats = (body: unknown) => {
         !("name" in repo) ||
         typeof repo.name !== "string" ||
         !("stargazers_count" in repo) ||
-        typeof repo.stargazers_count !== "number" ||
-        !("forks_count" in repo) ||
-        typeof repo.forks_count !== "number"
+        typeof repo.stargazers_count !== "number"
       ) {
         return [];
       }
@@ -41,7 +39,6 @@ export const repoStats = (body: unknown) => {
           repo.name,
           {
             stars: String(repo.stargazers_count),
-            forks: String(repo.forks_count),
           },
         ],
       ];

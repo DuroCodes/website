@@ -41,7 +41,6 @@ const stats = await loadRepoStats();
               repo={repo}
               language={language}
               stars={stats[repo]?.stars}
-              forks={stats[repo]?.forks}
             />
           ))
         }
@@ -65,9 +64,7 @@ const stats = await loadRepoStats();
           if (!repo) return;
 
           const stars = card.querySelector("[data-stars]");
-          const forks = card.querySelector("[data-forks]");
           if (stars) stars.textContent = repo.stars;
-          if (forks) forks.textContent = repo.forks;
         });
       };
 
