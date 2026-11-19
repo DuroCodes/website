@@ -39,7 +39,8 @@ const stats = await loadRepoStats();
           Object.entries(pinnedRepos).map(([repo, language]) => (
             <Project
               repo={repo}
-              language={language}
+              description={language.description}
+              language={language.language}
               stars={stats[repo]?.stars}
             />
           ))

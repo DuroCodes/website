@@ -6,17 +6,36 @@ export interface Experience {
 }
 
 export const githubUser = "DuroCodes";
-
 export const githubReposUrl = `https://api.github.com/users/${githubUser}/repos?per_page=100&type=owner`;
 
 export const pinnedRepos = {
-  spongebin: "TypeScript",
-  audit: "Rust",
-  spark: "TypeScript",
-  pokefetch: "Go",
-  "advent-of-code": "Rust",
-  crony: "Rust",
-};
+  spongebin: {
+    description:
+      "pastebin for code snippets; rendered with shiki and monaco editor",
+    language: "TypeScript",
+  },
+  audit: {
+    description: "tool to validate advent of code solutions",
+    language: "Rust",
+  },
+  spark: {
+    description: "typescript-first discord.js bot handler",
+    language: "TypeScript",
+  },
+  pokefetch: {
+    description: "display a random pokémon from the pokéapi in your terminal",
+    language: "Go",
+  },
+  mise: {
+    description: "self-hosted recipe manager",
+    language: "TypeScript",
+  },
+  crony: {
+    description:
+      "a simple and powerful command line cron job manager and scheduler",
+    language: "Rust",
+  },
+} as const;
 
 export const repoStats = (body: unknown) => {
   if (!Array.isArray(body)) return {};

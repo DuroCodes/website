@@ -4,10 +4,11 @@ import { githubUser } from "../data/work";
 interface Props {
   repo: string;
   language: string;
+  description: string;
   stars?: string;
 }
 
-const { repo, language, stars = "–" } = Astro.props;
+const { repo, language, description, stars = "–" } = Astro.props;
 ---
 
 <a
@@ -17,10 +18,13 @@ const { repo, language, stars = "–" } = Astro.props;
   class="hover:no-underline"
 >
   <div
-    class="flex flex-col justify-between gap-y-4 border border-neutral-700 bg-themeBlack hover:scale-105 ease-out transition-transform p-4 rounded-xl"
+    class="min-h-36 flex flex-col justify-between gap-y-2 border border-neutral-700 bg-themeBlack hover:scale-105 ease-out transition-transform p-4 rounded-xl"
   >
-    <span class="text-xl font-medium">{repo}</span>
-    <div class="flex flex-wrap items-center gap-x-2 text-(sm neutral-200)">
+    <div class="flex flex-col gap-y-2">
+      <span class="text-xl font-medium text-themeMain">{repo}</span>
+      <p class="text-(sm neutral-200)">{description}</p>
+    </div>
+    <div class="flex items-center gap-x-2 text-(sm neutral-200) shrink-0">
       <div class="flex gap-x-1 items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -39,7 +43,6 @@ const { repo, language, stars = "–" } = Astro.props;
         </svg>
         <span data-stars>{stars}</span>
       </div>
-
       <span>•</span>
       <span>{language}</span>
     </div>
