@@ -69,6 +69,7 @@ David publishes this site as Duro. He mainly works in TypeScript, Python, and Ru
 - [Home](${home}): Bio and contact details
 - [Work](${pageUrl(site, "/work")}): Experience and projects
 - [Blog](${pageUrl(site, "/blog")}): Writing on programming and tech
+- [Resume](${pageUrl(site, "/resume.pdf")}): PDF resume (no phone number)
 - [FAQ](${pageUrl(site, "/faq")}): Name, languages, and editor themes
 - [RSS](${pageUrl(site, "/rss.xml")}): Blog feed
 - [Sitemap](${pageUrl(site, "/sitemap-index.xml")}): Every HTML page
@@ -131,6 +132,7 @@ David publishes this site as Duro. He mainly works in TypeScript, Python, and Ru
 - Email: david@durocodes.me
 - Discord: https://discord.com/users/283312847478325251
 - GitHub: https://github.com/durocodes
+- Resume: ${pageUrl(site, "/resume.pdf")}
 - Last.fm: https://www.last.fm/user/duroo_
 - Notes: https://quartz.durocodes.me/
 
